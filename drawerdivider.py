@@ -21,6 +21,18 @@ import inkex
 from inkex.paths import Line, Path
 import pathlib
 
+class HorzLine():
+    def __init__(self, x1, y1, x2):
+        self.x1 = x1
+        self.y1 = y1
+        self.x2 = x2
+
+class VertLine():
+    def __init__(self, x1, y1, y2):
+        self.x1 = x1
+        self.y1 = y1
+        self.y2 = y2
+
 class DrawerDivider(inkex.EffectExtension):
     def add_arguments(self, pars):
         pars.add_argument("--depth", type=float, default=2,
@@ -31,13 +43,15 @@ class DrawerDivider(inkex.EffectExtension):
 
     def effect(self):
         with open(str(pathlib.Path().absolute()) + r'\test.txt', 'w') as f:
-            for node in self.svg.get_selected(inkex.PathElement):
-                path = node.path #.to_absolute()
-                #for cmd_proxy in path.proxy_iterator():  # type: inkex.Path.PathCommandProxy
-                #    prev = cmd_proxy.previous_end_point
-                #    end = cmd_proxy.end_point
-                #for line in lines:
-                f.write(str(path) + '\n')
+            for elem in self.svg.get_selected_or_all(inkex.PathElement):
+                path = elem.path #.to_absolute()
+                if len(path) != 1:
+                    # warning: can only process singular, simple paths
+                    pass
+                else:
+                    # Classify path as horz or vert, ignore others
+                    for cp in path.control_points:
+                        f.write(str(cp) + '\n')
                 
 if __name__ == '__main__':
     DrawerDivider().run()
