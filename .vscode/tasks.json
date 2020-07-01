@@ -1,0 +1,23 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Copy to Inkscape Extensions",
+            "type": "shell",
+            "command": "robocopy",
+            "args": [
+                "${workspaceFolder}",
+                "C:\\Users\\Nate\\AppData\\Roaming\\inkscape\\extensions",
+                "drawerdivider.inx",
+                "drawerdivider.py"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}

@@ -19,6 +19,7 @@
 
 import inkex
 from inkex.paths import Line, Path
+import pathlib
 
 class DrawerDivider(inkex.EffectExtension):
     def add_arguments(self, pars):
@@ -29,7 +30,7 @@ class DrawerDivider(inkex.EffectExtension):
         pars.add_argument("--units", help="Inches or mm")
 
     def effect(self):
-        with open(r'C:\Users\nrarm\Desktop\test.txt', 'w') as f:
+        with open(str(pathlib.Path().absolute()) + r'\test.txt', 'w') as f:
             for node in self.svg.get_selected(inkex.PathElement):
                 path = node.path #.to_absolute()
                 #for cmd_proxy in path.proxy_iterator():  # type: inkex.Path.PathCommandProxy
