@@ -88,7 +88,8 @@ class DrawerDivider(inkex.EffectExtension):
         """
         self.horz_paths = []
         self.vert_paths = []
-        for elem in self.svg.get_selected_or_all(inkex.PathElement):
+
+        for elem in self.svg.descendants().filter(inkex.PathElement).values():
             path = elem.path.to_absolute()
             if len(path) != 2:
                 # Warning: can only process singular, simple paths; ignore this path
